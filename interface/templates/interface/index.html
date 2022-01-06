@@ -1,0 +1,511 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeckonia@pafiQuinka</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+</head>
+<style>
+    .cardp {
+        position: relative;
+        width: 315px;
+        /* Remove for full width */
+        height: 450px;
+        /* Remove for full width */
+        margin: 30px auto;
+        box-shadow: 0 0 100px rgba(0, 0, 0, .3);
+    }
+
+    .card-header {
+        position: relative;
+        height: 220px;
+        background-size: cover;
+        background-position: top;
+    }
+
+    .card-header:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgb(5, 85, 134), rgba(181, 181, 181, 0.1));
+    }
+
+    .card-header-bar {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        width: 100%;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip: rect(0, 0, 0, 0);
+        border: none;
+        overflow: hidden;
+    }
+
+    .btn-message {
+        display: inline-block;
+        background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077483/profile-card/images/message.svg) no-repeat;
+        width: 19.37px;
+        height: 16.99px;
+        margin-right: 10px;
+        margin-top: 10px;
+        float: right;
+    }
+
+    .btn-menu {
+        display: inline-block;
+        background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077483/profile-card/images/menu.svg) no-repeat;
+        width: 19px;
+        height: 12.16px;
+        margin-left: 10px;
+        margin-top: 10px;
+        float: left;
+    }
+
+    svg .polygon {
+        fill: #fff;
+    }
+
+    .card-header-slanted-edge {
+        position: absolute;
+        bottom: -3px;
+        z-index: 1;
+        width: 100%;
+        right: 0;
+        left: 0;
+    }
+
+    .btn-follow {
+        position: absolute;
+        top: -15px;
+        right: 25px;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(to left, #2D77C1, #68FAC2);
+        border-radius: 100%;
+        box-shadow: 0 10px 15px rgba(110, 221, 235, .53);
+    }
+
+    .btn-follow:after {
+        content: '';
+        position: absolute;
+        background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077480/profile-card/images/add.svg) no-repeat;
+        width: 17px;
+        height: 17px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .card-body {
+        text-align: center;
+        padding-left: 10px;
+    }
+
+    .name {
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin: 0 auto;
+    }
+
+    .job-title {
+        font-size: 14px;
+        font-weight: 300;
+        margin-top: 5px;
+        color: #919191;
+    }
+
+    .bio {
+        font-size: 14px;
+        color: #7B7B7B;
+        font-weight: 300;
+        margin: 10px auto;
+        line-height: 20px;
+    }
+
+    .project-social-accounts img {
+        width: 15px;
+    }
+
+    .project-social-accounts a {
+        margin-left: 10px;
+    }
+
+    .project-social-accounts a:first-child {
+        margin-left: 0;
+    }
+
+    .max-width marquee>p {
+        padding-top: 20px;
+        color: #2d77c1;
+        font-size: 25px;
+        font-weight: 500;
+        font-family: "Poppins", sans-serif;
+    }
+</style>
+
+<body>
+    <div class="scroll-up-btn">
+        <a href="#home"><i class="fab fa-angle-up"></i></a>
+    </div>
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="{% url 'home' %}">Jeck<span>Onia</span></a></div>
+            <ul class="menu">
+                <li><a href="#{% url 'home' %}">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#teams">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!---Home section -->
+    {% for me in myself %}
+    <section class="home" id="home" style="background-image: url({{me.home_img.url}});">
+        <div class="max-width">
+            <div class="home-content">
+                <div class="text-1">Hello, I am </div>
+                <div class="text-2">{{me.full_name|title}} </div>
+                <div class="text-3">And I am a <span>{{me.course_doing|title}}</span> & a
+                    <span>{{me.side_hobby|title}}!</span>
+                </div>
+                <a href="mailto:{{me.email_address}}">Hire Me</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <div class="max-width">
+        <marquee direction="left">
+            <p class="marq-p"> {{me.marquee_text_home}} </p>
+        </marquee>
+    </div>
+
+    {% endfor %}
+    <!--About section starts-->
+
+    <section class="about" id="about">
+        <div class="max-width">
+            <h2 class="title">ABOUT</h2>
+            {% for me in myself %}
+            <div class="about-content">
+                <div class="column left">
+                    <img src="{{ me.profile_pic.url }}" alt="{{ me.full_name|title }}">
+
+                </div>
+                <div class="column right">
+                    <div class="text">
+                        I am {{me.full_name|title}}, a <span>{{me.course_doing|title}} Student</span> & a
+                        <span>{{me.side_hobby|title}}</span> at
+                        The <span style="color: crimson;">;</span>
+                        <a href="{{me.school_link}}" target="_blank" class="school">
+                            {{me.school}} ({{me.school_abbr}})
+                        </a>
+                    </div>
+                    <p>{{me.personal_stat|truncatechars:500}}</p> <span>
+                        <a href="#">Read More...</a>
+                    </span>
+                    <a href="{{ me.personal_cv.url }}">Find My CV</a>
+                </div>
+            </div>
+            {% endfor %}
+    </section>
+
+    <!---Contant Page section-->
+    <section class="services" id="service">
+        <div class="max-width">
+            <h2 class="title">SERVICES</h2>
+            <div class="serv-content">
+                {% for service in services %}
+                <div class="card">
+                    <div class="box">
+                        <a href="" style="color: white;">
+                            <i class="fas fa-{{service.service_icon_name|lower}}"></i>
+
+                            <div class="text">{{service.service_name}}</div>
+                            <p>{{ service.service_desc|truncatechars:300 }}</p>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- <div class="card">
+                    <div class="box">
+                        <a href="" style="color: white;">
+                            <i class="fas fa-code"></i>
+                            <div class="text">Web Design</div>
+                            <p>
+                                Medical information and services are increasingly sought
+                                for over the internet. This medical website design guide
+                                will be of particular interest to medical practices seeking
+                                to establish a successful online presence.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="box">
+                        <a href="mailto:jeckonia23@gmail.com" style="color: white;">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="text">Counselling</div>
+                            <p>
+                                Besides peer Counselling,
+                                I also have talents that may assist you in resolving
+                                your own issues. I am not yet certified as a
+                                professional counselor, but I have had a lot of
+                                experience working with students.
+                            </p>
+                        </a>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    {% for me in myself %}
+    <div class="max-width">
+        <marquee direction="left">
+            <p class="marq-p" style="color: crimson;"> {{me.marquee_text_serv}} </p>
+        </marquee>
+    </div>
+    {% endfor %}
+
+
+    <!-- skills sections -->
+    <section class="skills" id="skills">
+        <div class="max-width">
+            <h2 class="title">SKILLS</h2>
+            <div class="skill-content">
+                <!-- <p>TO BE CONTINUED EXAMS GUYS....</p>
+                <p>You can also find subscribe to my <a href="https://www.youtube.com/channel/UCXwGLedu1irlQwf-5gOjeqA/featured" target="_blank">YOUTUBE</a> channel to support me
+                and get update on my new and upcoming projects.</p> -->
+
+                <div class="column left">
+                    <div class="text">My Creativity & Designs</div>
+                    {% for sum in designs%}
+                    <p>{{ sum.creative_design }}</p>
+                    {% endfor %}
+
+                    <a href="#">Explore more ...> </a>
+                </div>
+
+                <div class="column right">
+                    <div class="text">Area of Expertise</div>
+                    {% for skill in skills %}
+                    <div class="bars">
+                        <div class="info">
+                            <span>{{skill.skill_title|upper}}</span>
+                            <span>{{skill.skill_level}}%</span>
+                        </div>
+                        <div class="line {{skill.skill_title|lower}}"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section skills ends -->
+    <!-- section my team members starts -->
+    <section class="teams" id="teams">
+        <div class="max-width">
+            <h2 class="title">MY TEAM</h2>
+            <div class="carousel owl-carousel">
+                {% for member in members %}
+                <div class="card"><a href="mailto:{{member.email_address}}">
+                        <div class="box">
+                            {% if member.profile_pic %}
+                            <img src="{{ member.profile_pic.url }}" alt="{{member.full_name|truncatechars:6}}">
+                            {% else %}
+                            <img src="{% static 'images/member-default.jpg' %}" alt="Defaulf Profile">
+                            {% endif %}
+                            <div class="text">{{member.full_name|title}}</div>
+                            <p>{{member.thought|truncatechars:70}}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- team member section ends -->
+
+    <!-- contact information starts -->
+    <section class="contact" id="contact">
+        <div class="max-width">
+            <h2 class="title">CONTACT ME</h2>
+            <div class="contact-content">
+                <div class="column left">
+                    <div class="text">Reach Me out</div>
+                    <p>Hello, friends, below is a list of my contact detail with which you can reach me</p>
+                    {% for me in myself %}
+                    <div class="icons">
+
+                        <div class="row">
+                            <i class="fas fa-user"></i>
+                            <div class="info">
+                                <div class="head">Name</div>
+                                <div class="sub-title">{{me.full_name|title}}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info">
+                                <div class="head">Address</div>
+                                <div class="sub-title">{{me.address|title}}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info">
+                                <div class="head">Email</div>
+                                <div class="sub-title">{{me.email_address}}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <i class="fas fa-phone"></i>
+                            <div class="info">
+                                <div class="head">Phone</div>
+                                <div class="sub-title">+{{me.phone_num}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="column right">
+                    <div class="text">Post Me a Message</div>
+                    <form action="#">
+                        <div class="fields">
+                            <div class="field name">
+                                <input type="text" placeholder="enter your name" required>
+                            </div>
+                            <div class="field email">
+                                <input type="email" placeholder="enter your email" required>
+                            </div>
+                        </div>
+                        <div class="field subject">
+                            <input type="text" placeholder="subject description" required>
+                        </div>
+                        <div class="field textarea">
+                            <textarea name="textarea" id="" cols="30" rows="10"
+                                placeholder="Enter your message description here" required></textarea>
+                        </div>
+                        <div class="button">
+                            <button type="submit">Send message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- contact information ends  -->
+    <!-- section prpojects starts -->
+    <section class="project" id="project">
+        <div class="max-width">
+            <h2 class="title">PROJECTS</h2>
+            <div class="project-content">
+                {% if projects %}
+                {% for project in projects %}
+                <div class="cardp">
+                    <div class="card-header" style="background-image: url({{project.project_image.url}})">
+                        <div class="card-header-bar">
+                            <a href="#" class="btn-message"><span class="sr-only">
+                                    <i class="fas fa-count"></i>
+                                </span></a>
+                            <a href="#" class="btn-menu"><span class="sr-only">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span></a>
+                        </div>
+
+                        <div class="card-header-slanted-edge">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200">
+                                <path class="polygon" d="M-20,200,1000,0V200Z" />
+                            </svg>
+                            <a href="#" class="btn-follow"><span class="sr-only">Follow</span></a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h2 class="name">{{project.project_title|upper}}</h2>
+                        <h4 class="job-title" style="color: crimson;">{{project.project_category|upper}}</h4>
+                        <cite>
+                            <div class="bio">
+                                " {{ project.project_desc|truncatechars:150 }} "
+                            </div>
+                        </cite>
+                        <div class="project-social-accounts">
+                            <a href="{{ project.project_tw_link }}" target="_blank"><img
+                                    src="https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077480/profile-card/images/twitter.svg"
+                                    alt="">
+                                <span class="sr-only">Twitter</span></a>
+                            <a href="{{ project.project_iG_link }}" target="_blank"><img
+                                    src="https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077480/profile-card/images/instagram.svg"
+                                    alt="">
+                                <span class="sr-only">Instagram</span></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>There are currently no projects uploaded for the mean time</p>
+                {% endif %}
+            </div>
+            {% for me in myself %}
+            <div class="max-width">
+                <marquee direction="left">
+                    <p class="marq-p"> {{me.marquee_text_proj}} </p>
+                </marquee>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- section project ends -->
+    <!-- footer section starts -->
+
+    <section class="footer" id="footer">
+        <div class="max-width">
+            <div class="footer-content">
+                <div class="column left">
+                    <span><i><a href="#">PafiQuinka</a></i></span>
+                    <span class="fas fa-copyright"></span>
+                    <span>2021 All Rights Reserved.</span>
+                </div>
+                <div class="column right">
+                    <span><i class="fab fa-youtube"></i></span>
+                    <span><i class="fab fa-twitter"></i></span>
+                    <span><i class="fab fa-instagram"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- footer section ends -->
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
